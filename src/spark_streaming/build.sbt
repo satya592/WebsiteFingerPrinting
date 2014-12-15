@@ -60,6 +60,8 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-all" % "1.9.5" % "test"
 )
 
+libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.5.2"
+
 // Required IntelliJ workaround.  This tells `sbt gen-idea` to include scala-reflect as a compile dependency (and not
 // merely as a test dependency), which we need for TypeTag usage.
 libraryDependencies <+= (scalaVersion)("org.scala-lang" % "scala-reflect" % _)

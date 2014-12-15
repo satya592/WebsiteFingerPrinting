@@ -51,18 +51,34 @@ object KafkaWordCount {
     val Array(zkQuorum, group, topics, numThreads) = args
     val sparkConf = new SparkConf().setAppName("KafkaWordCount")
     sparkConf.setMaster("local[2]")
-    val ssc =  new StreamingContext(sparkConf, Seconds(2))
+    val ssc =  new StreamingContext(sparkConf, Seconds(20))
     ssc.checkpoint("checkpoint")
+
+	print ("alive 1\n")
 
     val topicMap = topics.split(",").map((_,numThreads.toInt)).toMap
     val lines = KafkaUtils.createStream(ssc, zkQuorum, group, topicMap).map(_._2)
-    val words = lines.flatMap(_.split(" "))
-    val wordCounts = words.map(x => (x, 1L))
-      .reduceByKeyAndWindow(_ + _, _ - _, Minutes(10), Seconds(2), 2)
-    wordCounts.print()
+    lines.print()
 
+	print ("alive 2\n")
+    val words = lines.flatMap(_.split(" "))
+    //val wordCounts = words.map(x => (x, 1L))
+      //.reduceByKeyAndWindow(_ + _, _ - _, Minutes(3), Seconds(20), 1)
+    
+    val wordCounts = words.map(x => (x, 1L))
+      .window(Minutes(3), Seconds(20))
+
+	print ("alive 2.5\n")
+
+    //wordCounts.print()
+
+    wordCounts.saveAsHadoopFiles("hdfs://localhost:9000/hehe", "haha")
+
+	print ("alive 3\n")
     ssc.start()
+	print ("alive 4\n")
     ssc.awaitTermination()
+	print ("alive 5\n")
   }
 }
 
