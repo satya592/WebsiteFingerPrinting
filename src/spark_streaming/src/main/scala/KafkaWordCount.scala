@@ -72,7 +72,8 @@ object KafkaWordCount {
 
     //wordCounts.print()
 
-    wordCounts.saveAsHadoopFiles("hdfs://localhost:9000/hehe", "haha")
+    //wordCounts.saveAsHadoopFiles("hdfs://localhost:9000/hehe", "haha")
+    wordCounts.saveAsTextFiles("hdfs://localhost:9000/hehe", "haha")
 
 	print ("alive 3\n")
     ssc.start()
