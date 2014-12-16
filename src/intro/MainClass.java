@@ -1,12 +1,16 @@
 package intro;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
 
 import org.apache.commons.cli.*;
+
+import wfpacketsniffer.KafkaProducer;
 
 import countermeasures.*;
 import classifiers.*;
@@ -266,9 +270,9 @@ public class MainClass {
 					webpagesTest = Datastore.getWebpagesLL(webpageIdAsList,
 							seed, seed + config.NUM_TESTING_TRACES);//4*/
                                     webpagesTrain = Datastore.getWebpagesLL(webpageIdAsList,
-							0, 1);//16
+							0, 15);//16
 					webpagesTest = Datastore.getWebpagesLL(webpageIdAsList,
-							2, 3);//4
+							16, 19);//4
                                     
 				} else if (config.DATA_SOURCE == 1 || config.DATA_SOURCE == 2) {
 					// System.out.println();
@@ -365,7 +369,11 @@ public class MainClass {
 			List<String> accuracy_debugInfo = getClassification(classifier,
 					runID, trainingSet, testingSet);
 			long end = System.currentTimeMillis();
-
+			//work here spark kafka here
+			
+			sendDataToSpark(runID);
+			
+            System.exit(0);
 			String overhead = postCountermeasureOverhead + "/"
 					+ preCountermeasureOverhead;
 
@@ -648,5 +656,53 @@ public class MainClass {
 		}
 
 		return accuracy_debugInfo;
+	}
+	
+	public static void sendDataToSpark(String runID){
+		
+		KafkaProducer myProducer = new KafkaProducer();
+		myProducer.init();
+		try{                                                                                                            
+		BufferedReader br = new BufferedReader(new FileReader(new File("/home/gbaduz/bigdatajar/cache/datafile-"+ runID +"-train.arff")));
+		String line="";
+		while ((line = br.readLine()) != null) {
+		   // process the line.
+			
+			if(line.indexOf("@RELATION") != -1 ){
+				
+			}
+			else if(line.indexOf("@ATTRIBUTE") != -1 ){
+				
+				
+				
+			}
+			else if(line.indexOf("@DATA") != -1){
+				
+			}
+			else{
+				String newline =  reformatLine(line);
+				myProducer.sendKafkaData(newline);
+			}
+		}
+		br.close();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+	}
+	public static String reformatLine(String myline){
+		
+		String[] params = myline.split(",");
+		String newFormat="";
+		int index = params.length - 1;
+		newFormat = newFormat + params[index] +",";
+		String tempFormat = "";
+		for(int i=0;i < index-1; i++){
+			tempFormat +=  params[i]+" ";
+		}
+		
+		newFormat = newFormat + tempFormat.trim();
+		
+		return newFormat;
 	}
 }

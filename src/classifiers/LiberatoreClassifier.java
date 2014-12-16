@@ -24,13 +24,13 @@ public class LiberatoreClassifier extends ClassifiersInt{
 	public static List<String> classify(String runID, List<HashMap<String, String>> trainingSet, List<HashMap<String, String>> testingSet) throws Exception
 	{
 		String[] trainingFile_testingFile = arffWriter.writeArffFiles( runID, trainingSet, testingSet );
-		
-		List<String> argus = new ArrayList<String>()
+		return null;
+	/*	List<String> argus = new ArrayList<String>()
 				{{
 					add("-K"); // for NaiveBayes
 				}};
 		
 		return wekaAPI.execute( trainingFile_testingFile[0], trainingFile_testingFile[1], "weka.classifiers.bayes.NaiveBayes", argus );
-	}
+	*/}
 
 }

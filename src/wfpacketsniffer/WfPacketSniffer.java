@@ -27,8 +27,10 @@ public class WfPacketSniffer {
         // Notice that the remainder of the code relies on the interface,
         // not the implementation
         myfilenames = new HashMap();
+   
+     // MainClass.sendDataToSpark();
         Map<Integer, Webpage> myMap = setUpWebpages();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             for (Integer id : myMap.keySet()) {
                 Webpage wb = myMap.get(id);
 
@@ -46,7 +48,7 @@ public class WfPacketSniffer {
                     driver.get(wb.getName());
 
                     driver.quit();
-                    Thread.sleep(1000);
+                    Thread.sleep(5000);
                     pb.command("/bin/bash", "-c",
                             "/usr/sbin/killall tcpdump");
                     Process process1 = pb.start();
@@ -65,15 +67,17 @@ public class WfPacketSniffer {
 
         ///call spark
         try {
+        	 
              MainClass.process(null);
 
-            Thread.sleep(20000);
+            Thread.sleep(60000);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         myfilenames.clear();
+        
 
     }
 
@@ -86,7 +90,35 @@ public class WfPacketSniffer {
         myList.add(new Webpage("http://www.facebook.com"));
         myList.add(new Webpage("http://www.yahoo.com"));
         myList.add(new Webpage("http://www.youtube.com"));
-
+        myList.add(new Webpage("http://www.amazon.com"));
+        myList.add(new Webpage("http://www.wikipedia.com"));
+        myList.add(new Webpage("http://www.twitter.com"));
+        myList.add(new Webpage("http://www.linkedin.com"));
+        myList.add(new Webpage("http://www.ebay.com"));
+        myList.add(new Webpage("http://www.bing.com"));
+        myList.add(new Webpage("http://www.ask.com"));
+        myList.add(new Webpage("http://www.wordpress.com"));
+        myList.add(new Webpage("http://www.instagram.com"));
+        myList.add(new Webpage("http://www.reddit.com"));
+        myList.add(new Webpage("http://www.msn.com"));
+        myList.add(new Webpage("http://www.paypal.com"));
+        myList.add(new Webpage("http://www.alibaba.com"));
+        myList.add(new Webpage("http://www.apple.com"));
+        myList.add(new Webpage("http://www.microsoft.com"));
+        myList.add(new Webpage("http://www.imdb.com"));
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         int count = 0;
         for (Webpage w : myList) {
             myMap.put(count, w);

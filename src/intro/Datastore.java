@@ -16,13 +16,17 @@ public class Datastore {
 //			for (int i : Utils.range(traceIndexStart, traceIndexEnd))
 //				System.out.println(i);
 			/// end debug
+			
 			for (String name : wfpacketsniffer.WfPacketSniffer.myfilenames.get(webpageId))
-			{
-				Trace trace = Datastore.getTraceLL( webpageId, name );
-				webpage.addTrace(trace);
+				{
+				if(webpageId >= traceIndexStart &&  webpageId <= traceIndexEnd ){
+					Trace trace = Datastore.getTraceLL( webpageId, name );
+					webpage.addTrace(trace);
+				}
+				}
+				webpages.add(webpage);
 			}
-			webpages.add(webpage);
-		}
+		
 		
 		return webpages;
 	}

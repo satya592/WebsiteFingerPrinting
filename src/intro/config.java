@@ -13,7 +13,7 @@ public class config {
 	***/
 	
 	//public static final String BASE_DIR = "/data/kld/papers/InferringSrcOfEncrHTTPCon/"; // Peekaboo paper
-	public static final String BASE_DIR = "/home/gbaduz/NetBeansProjects/WfPacketSniffer/dist/"; // Peekaboo paper
+	public static final String BASE_DIR = "./"; // Peekaboo paper
 	
 	// Enviromental settings
 	public static final String JVM_MEMORY_SIZE = "8384m"; // 4192m
@@ -44,7 +44,7 @@ public class config {
 
 	public static int COUNTERMEASURE = 0;
 	public static int CLASSIFIER = 0;
-	public static int BUCKET_SIZE = 4;// def 2
+	public static int BUCKET_SIZE = 20;// def 2
 	public static int DATA_SOURCE = 0; // 1 or 2 is for Herrmann data set
 	public static int NUM_TRAINING_TRACES = 16;
 	public static int NUM_TESTING_TRACES  = 4;
