@@ -663,7 +663,7 @@ public class MainClass {
 		KafkaProducer myProducer = new KafkaProducer();
 		myProducer.init();
 		try{                                                                                                            
-		BufferedReader br = new BufferedReader(new FileReader(new File("/home/gbaduz/bigdatajar/cache/datafile-"+ runID +"-train.arff")));
+		BufferedReader br = new BufferedReader(new FileReader(new File("cache/datafile-"+ runID +"-train.arff")));
 		String line="";
 		while ((line = br.readLine()) != null) {
 		   // process the line.
