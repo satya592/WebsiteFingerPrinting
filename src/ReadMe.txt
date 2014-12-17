@@ -1,2 +1,1 @@
-If you are reading this, then your repo is set.
-Good luck!
+Use readme in spark_streaming to run the kafka,spark.
