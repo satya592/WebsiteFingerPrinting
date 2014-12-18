@@ -58,11 +58,11 @@ object KafkaWordCount {
     val topicMap = topics.split(",").map((_,numThreads.toInt)).toMap
     val lines = KafkaUtils.createStream(ssc, zkQuorum, group, topicMap).map(_._2)
 
-    val words = lines.flatMap(_.split(" "))
+    //val words = lines.flatMap(_.split(" "))
     //val wordCounts = words.map(x => (x, 1L))
       //.reduceByKeyAndWindow(_ + _, _ - _, Minutes(3), Seconds(20), 1)
     
-    words.window(Minutes(3), Minutes(3)).saveAsTextFiles("hdfs://localhost:9000/spark/hehe", "haha")
+    lines.window(Minutes(3), Minutes(3)).saveAsTextFiles("hdfs://localhost:9000/spark/hehe", "haha")
 
     ssc.start()
     ssc.awaitTermination()

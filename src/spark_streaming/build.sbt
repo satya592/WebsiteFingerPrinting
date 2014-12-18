@@ -61,6 +61,7 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies += "org.apache.hadoop" % "hadoop-client" % "2.5.2"
+libraryDependencies += "org.apache.spark" % "spark-mllib_2.10" % "1.1.1"
 
 // Required IntelliJ workaround.  This tells `sbt gen-idea` to include scala-reflect as a compile dependency (and not
 // merely as a test dependency), which we need for TypeTag usage.
