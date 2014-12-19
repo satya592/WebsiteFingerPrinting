@@ -24,16 +24,25 @@ object ML_Spark {
 			line => val parts = line.split(',')
   			LabeledPoint(parts(0).split("page")(1).toInt, Vectors.dense(parts(1).split(' ').map(_.toDouble)))
 		}
-
-		val errors = Array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0)
-		val splits = parsedData.randomSplit(Array(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9), seed = 11L)
-		for( a <- 0 to 8){
-			val test = splits(a)
-			val training = parsedData.subtract(splits(a))	
+		
+		val Data_Total_Count = parsedData.count().toInt
+		val errors = Array(0.0,0.0,0.0,0.0,0.0,0.0,0.0)
+		val testingcount = Array(0,0,0,0,0,0)
+		val trainingcount = Array(0,0,0,0,0,0)
+		val splits_37 = parsedData.randomSplit(Array(0.3,0.7), seed = 11L)
+		val splits_46 = parsedData.randomSplit(Array(0.4,0.6), seed = 11L)
+		val splits_55 = parsedData.randomSplit(Array(0.5,0.5), seed = 11L)
+		val splits = splits_37 ++ splits_46 ++ splits_55
+		
+		for( a <- 0 to 5){
+			var test = splits(a)
+                        var training = parsedData.subtract(splits(a))
 			val model = NaiveBayes.train(training, lambda = 1.0)
 			val predictionAndLabel = test.map(p => (model.predict(p.features), p.label))
 			val wronglyClassified = 1.0 * predictionAndLabel.filter(x => x._1 != x._2).count()
 			errors(a) = wronglyClassified/test.count
+			testingcount(a) = test.count.toInt
+			trainingcount(a) = training.count.toInt
 		}
 
                 val test = parsedData
@@ -41,7 +50,7 @@ object ML_Spark {
                 val model = NaiveBayes.train(training, lambda = 1.0)
                 val predictionAndLabel = test.map(p => (model.predict(p.features), p.label))
                 val wronglyClassified = 1.0 * predictionAndLabel.filter(x => x._1 != x._2).count()
-                errors(9) = wronglyClassified/test.count
+                errors(6) = wronglyClassified/test.count
 
 
 //		println("Naive Bayes training error: ")
@@ -69,7 +78,7 @@ object ML_Spark {
 //		println("Decisionn Tree depth and bins evaluation:")
 //		evaluations.sortBy(_._2).reverse.foreach(println)
 
-              val numClasses = 4
+/*              val numClasses = 4
               val categoricalFeaturesInfo = Map[Int, Int]()
               val impurity = "entropy"
               val maxDepth = 5
@@ -83,17 +92,18 @@ val labelAndPreds = parsedData.map { point =>
 }
 val trainErr = labelAndPreds.filter(r => r._1 != r._2).count.toDouble / data.count
 //println("Training Error = " + trainErr)
-
+*/
                 println("Naive Bayes training error: ")
-                for(b <- 0 to 8){
-                        var testing = b * 0.1 + 0.1
-                        var training = 1 - testing
-                        println("train:test (" + training + ":" + testing + ")= " + errors(b) + "\n")
+                for(b <- 0 to 5){
+                        //var testing = testingcount(b)
+                        //var training = Data_Total_Count - testing
+                        println("train:test (" + trainingcount(b) + ":" + testingcount(b) + ")= " + errors(b) + "\n")
                 }
-                println("train:test (1:1)= " + errors(9) + "\n")
+                println("train:test (1:1)= " + errors(6) + "\n")
 
-
+/*
 		println("Learned classification tree model(depth5 with entropy):\n" + model_pr)	
 		println("Training Error = " + trainErr)
+*/
 	}
 }
