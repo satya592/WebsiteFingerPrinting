@@ -25,10 +25,9 @@ object ML_Spark {
 
 		val errors = Array(0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0)
 		val splits = parsedData.randomSplit(Array(0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9), seed = 11L)
-		val splits_training = parsedData.randomSplit(Array(0.9,0.8,0.7,0.6,0.5,0.4,0.3,0.2,0.1))
 		for( a <- 0 to 8){
 			val test = splits(a)
-			val training = splits_training(a)	
+			val training = parsedData.subtract(splits(a))	
 			val model = NaiveBayes.train(training, lambda = 1.0)
 			val predictionAndLabel = test.map(p => (model.predict(p.features), p.label))
 			val wronglyClassified = 1.0 * predictionAndLabel.filter(x => x._1 != x._2).count()
