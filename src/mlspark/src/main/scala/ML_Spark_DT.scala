@@ -27,8 +27,8 @@ object ML_Spark_DT {
 		
 		val evaluations =
   for (impurity <- Array("gini", "entropy");
-       depth    <- Array(1, 10);
-       bins     <- Array(10, 50)) yield {
+       depth    <- Array(1, 5, 6, 7);
+       bins     <- Array(10, 20, 30, 40)) yield {
       val model = DecisionTree.trainClassifier(
         parsedData, 4, Map[Int,Int](), impurity, depth, bins)
       val predictionsAndLabels = parsedData.map(example =>
