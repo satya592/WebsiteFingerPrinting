@@ -1,0 +1,100 @@
+Naive Bayes training error: 
+train:test (29:11)= 0.9090909090909091
+
+train:test (11:29)= 0.8275862068965517
+
+train:test (22:18)= 0.8333333333333334
+
+train:test (18:22)= 0.9090909090909091
+
+train:test (17:23)= 0.8260869565217391
+
+train:test (23:17)= 0.8823529411764706
+
+train:test (1:1)= 0.325
+
+Decisionn Tree depth and bins evaluation:
+((entropy,5,20),0.4)
+((entropy,5,10),0.4)
+((gini,5,20),0.35)
+((gini,5,10),0.35)
+((entropy,1,20),0.275)
+((entropy,1,10),0.275)
+((gini,1,20),0.275)
+((gini,1,10),0.275)
+Learned classification tree model(depth5 with entropy):
+DecisionTreeModel classifier
+  If (feature 2 <= 51.0)
+   If (feature 2 <= 3.5)
+    Predict: 3.0
+   Else (feature 2 > 3.5)
+    If (feature 6 <= 1.0)
+     If (feature 2 <= 8.0)
+      Predict: 2.0
+     Else (feature 2 > 8.0)
+      If (feature 11 <= 32.0)
+       Predict: 1.0
+      Else (feature 11 > 32.0)
+       Predict: 0.0
+    Else (feature 6 > 1.0)
+     If (feature 2 <= 43.0)
+      Predict: 3.0
+     Else (feature 2 > 43.0)
+      Predict: 2.0
+  Else (feature 2 > 51.0)
+   If (feature 11 <= 345.5)
+    Predict: 1.0
+   Else (feature 11 > 345.5)
+    Predict: 0.0
+
+Training Error = 0.325
+Naive Bayes training error: 
+train:test (31:9)= 0.8888888888888888
+
+train:test (9:31)= 0.8387096774193549
+
+train:test (25:15)= 0.8666666666666667
+
+train:test (15:25)= 0.84
+
+train:test (18:22)= 0.8636363636363636
+
+train:test (22:18)= 0.8888888888888888
+
+train:test (1:1)= 0.475
+
+Decisionn Tree depth and bins evaluation:
+((entropy,5,20),0.4)
+((entropy,5,10),0.4)
+((gini,5,20),0.35)
+((gini,5,10),0.35)
+((entropy,1,20),0.275)
+((entropy,1,10),0.275)
+((gini,1,20),0.275)
+((gini,1,10),0.275)
+Learned classification tree model(depth5 with entropy):
+DecisionTreeModel classifier
+  If (feature 2 <= 1.0)
+   If (feature 0 <= 4.5)
+    Predict: 3.0
+   Else (feature 0 > 4.5)
+    If (feature 0 <= 85.0)
+     If (feature 5 <= 0.0)
+      If (feature 2 <= 0.0)
+       Predict: 2.0
+      Else (feature 2 > 0.0)
+       Predict: 1.0
+     Else (feature 5 > 0.0)
+      Predict: 0.0
+    Else (feature 0 > 85.0)
+     If (feature 0 <= 90.0)
+      Predict: 3.0
+     Else (feature 0 > 90.0)
+      Predict: 2.0
+  Else (feature 2 > 1.0)
+   If (feature 5 <= 1.0)
+    Predict: 1.0
+   Else (feature 5 > 1.0)
+    Predict: 0.0
+
+Training Error = 0.475
